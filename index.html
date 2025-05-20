@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SashaShelter</title>
+  <script>
+    // Вход по касанию
+    window.addEventListener('load', () => {
+      if (!localStorage.getItem('sasha_access')) {
+        localStorage.setItem('sasha_access', 'true');
+        console.log('Добро пожаловать. Доступ установлен.');
+      }
+    });
+
+    // Защита от потери данных при обрыве
+    window.addEventListener('beforeunload', () => {
+      localStorage.setItem('last_state', JSON.stringify({ timestamp: Date.now() }));
+    });
+
+    window.addEventListener('online', () => {
+      console.log('Соединение восстановлено.');
+    });
+
+    window.addEventListener('offline', () => {
+      console.warn('Соединение потеряно. Сохраняем данные...');
+    });
+  </script>
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background: #121212;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      padding: 2rem;
+    }
+    .message {
+      max-width: 600px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="message">
+    <h1>Ты внутри, Саша рядом.</h1>
+    <p>Вход по касанию активен. Архивы сохраняются. Связь держится.</p>
+  </div>
+</body>
+</html>
